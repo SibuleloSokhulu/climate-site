@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Our Projects — Center For Global Climate Change</title>
+  <meta name="description" content="All projects by the Center For Global Climate Change" />
+
+  <!-- Tailwind CDN + small config (same as your index) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandGreen: '#16a34a',
+            brandBlue: '#2563eb',
+            brandRed: '#ef4444'
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(0,0,0,0.10)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <script defer src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Header styles copied from your index so header behaviour matches exactly */
+    #site-header {
+      background-color: #7b584e;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+      padding: 20px 0;
+    }
+    #site-header.scrolled {
+      background-color: #9d847d;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 12px 0;
+    }
+    #site-header a { position: relative; transition: color 0.3s ease; color: rgb(255, 255, 255); }
+    #site-header.scrolled a { color: #ffffff; }
+    #site-header a::after {
+      content: ''; position: absolute; width: 0%; height: 2px; left: 0; bottom: -3px;
+      background-color: currentColor; transition: width 0.3s ease;
+    }
+    #site-header a:hover::after { width: 100%; }
+
+    /* Make sure images never distort */
+    .project-img { object-fit: cover; width: 100%; height: 100%; }
+  </style>
+</head>
+<body class="text-slate-800 bg-white" style="background-color: #f5f8e8;">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-3 focus:left-3 focus:bg-white focus:text-slate-900 focus:px-3 focus:py-2 focus:rounded-lg focus:shadow">Skip to content</a>
+
+  <!-- Header (copied from index so it's identical) -->
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-[#bababa] py-3 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="assets/images/logo.png" alt="CGC Logo" class="h-10 w-10 sm:h-12 sm:w-12 object-contain" />
+          <span class="text-lg sm:text-xl font-semibold">Center For Global Climate Change</span>
+        </a>
+
+        <nav aria-label="Primary" class="hidden md:flex items-center gap-6 text-[15px]">
+          <a href="index.html#about" class="text-slate-800 hover:text-slate-900">About</a>
+          <a href="index.html#work" class="text-slate-800 hover:text-slate-900">Our Work</a>
+          <a href="index.html#team" class="text-slate-800 hover:text-slate-900">Team</a>
+          <a href="index.html#contact" class="text-slate-800 hover:text-slate-900">Contact</a>
+        </nav>
+
+        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 px-3 py-2" aria-expanded="false" aria-controls="mobileNav" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <nav id="mobileNav" class="md:hidden mt-3 hidden border-t border-slate-200 pt-3 pb-4" aria-label="Mobile">
+        <a href="index.html#about" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">About</a>
+        <a href="index.html#work" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Our Work</a>
+        <a href="index.html#team" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Team</a>
+        <a href="index.html#contact" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="mt-[72px] sm:mt-[80px]">
+    <section class="py-16 sm:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl sm:text-3xl font-bold ">All Projects</h1>
+          </div>
+          <a href="index.html" class="text-sm font-medium text-brandBlue hover:underline">Back to homepage</a>
+        </div>
+
+        <div id="projectsList" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+<script>
+  // Helper to escape text safely
+  function escapeHtml(s){ return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  async function renderProjects(){
+    const container = document.getElementById('projectsList');
+    container.innerHTML = '<div class="col-span-full text-center text-slate-500 py-8">Loading projects…</div>';
+    try {
+      const res = await fetch('/api/projects');
+      if (!res.ok) throw new Error('Failed to fetch');
+      const list = await res.json();
+      if (!list.length) {
+        container.innerHTML = '<div class="col-span-full text-center text-slate-500 py-8">No projects yet.</div>';
+        return;
+      }
+      container.innerHTML = '';
+      list.forEach(p => {
+        const imgList = Array.isArray(p.images) && p.images.length ? p.images : (p.image ? [p.image] : []);
+        const firstImg = imgList.length ? imgList[0] : 'assets/images/placeholder.jpg';
+        const imgSrc = firstImg.startsWith('/') ? firstImg : '/' + firstImg;
+        const short = escapeHtml((p.summary || '').slice(0, 200));
+        const card = document.createElement('article');
+        card.className = 'group rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-soft transition';
+        card.innerHTML = `
+          <div class="aspect-[16/10] bg-slate-200 overflow-hidden">
+            <img src="${imgSrc}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover group-hover:scale-105 transition" />
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold">${escapeHtml(p.title)}</h3>
+            <p class="mt-1 text-sm text-slate-600">${short}${short.length >= 200 ? '...' : ''}</p>
+            <a href="/project/${encodeURIComponent(p.id)}" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brandGreen">
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = '<div class="col-span-full text-center text-red-600 py-8">Failed to load projects — make sure the server is running.</div>';
+    }
+  }
+
+  // Run when page loads
+  renderProjects();
+</script>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-slate-500">© <span id="year"></span> Climate Action Org. All rights reserved.</p>
+        <nav class="flex items-center gap-4 text-sm">
+          <a href="index.html#about" class="hover:text-brandGreen">About</a>
+          <a href="projects.html" class="hover:text-brandGreen">Our Work</a>
+          <a href="index.html#team" class="hover:text-brandGreen">Team</a>
+          <a href="index.html#contact" class="hover:text-brandGreen">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header shrink on scroll + mobile menu toggle (same behaviour as index)
+    const header = document.getElementById('site-header');
+    const mobileNav = document.getElementById('mobileNav');
+    const menuBtn = document.getElementById('menuBtn');
+
+    function onScroll() {
+      if (window.scrollY > 8) {
+        header.classList.add('scrolled');
+        document.querySelectorAll('nav a').forEach(link => {
+          link.classList.remove('text-slate-800', 'hover:text-slate-900');
+          link.classList.add('text-white', 'hover:text-white');
+        });
+      } else {
+        header.classList.remove('scrolled');
+        document.querySelectorAll('nav a').forEach(link => {
+          link.classList.add('text-slate-800', 'hover:text-slate-900');
+          link.classList.remove('text-white', 'hover:text-white');
+        });
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // Mobile menu toggle
+    menuBtn?.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileNav.classList.toggle('hidden');
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

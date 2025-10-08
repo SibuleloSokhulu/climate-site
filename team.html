@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Team — Center For Global Climate Change</title>
+  <meta name="description" content="Meet the team behind the Center For Global Climate Change." />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandGreen: '#16a34a',
+            brandBlue: '#2563eb',
+            brandRed: '#ef4444',
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(0,0,0,0.10)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- (Optional) Lucide icons if you want to use them later -->
+  <script defer src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Header visual behavior — copied from your homepage */
+    #site-header {
+      background-color: #7b584e;           /* your base header color */
+      transition: background-color .3s ease, box-shadow .3s ease, padding .3s ease;
+      padding: 20px 0;                     /* initial height */
+    }
+    #site-header.scrolled {
+      background-color: #9d847d;           /* on scroll */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 12px 0;                     /* shrink */
+    }
+    #site-header a {
+      position: relative;
+      transition: color .3s ease;
+      color: rgb(255, 255, 255);                         /* default */
+    }
+    #site-header.scrolled a { color: #ffffff; }
+
+    /* subtle underline on hover */
+    #site-header a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0; bottom: -3px;
+      background-color: currentColor;
+      transition: width .3s ease;
+    }
+    #site-header a:hover::after { width: 100%; }
+  </style>
+</head>
+<body class="text-slate-800 bg-white" id="top">
+  <!-- Skip link -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-3 focus:left-3 focus:bg-white focus:text-slate-900 focus:px-3 focus:py-2 focus:rounded-lg focus:shadow">Skip to content</a>
+
+  <!-- Header (same as homepage, but links point back to index.html sections) -->
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50 py-3 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <!-- Logo + Title -->
+        <a href="index.html#top" class="flex items-center gap-2">
+          <img src="assets/images/logo.png" alt="CGC Logo" class="h-10 w-10 sm:h-12 sm:w-12 object-contain" />
+          <span class="text-lg sm:text-xl font-semibold">Center For Global Climate Change</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav aria-label="Primary" class="hidden md:flex items-center gap-6 text-[15px]">
+          <a href="index.html#about"  class="text-slate-800 hover:text-slate-900 transition-colors duration-300">Purpose</a>
+          <a href="index.html#work"   class="text-slate-800 hover:text-slate-900 transition-colors duration-300">Our Work</a>
+          <a href="index.html#contact" class="text-slate-800 hover:text-slate-900 transition-colors duration-300">Contact</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 px-3 py-2" aria-expanded="false" aria-controls="mobileNav" aria-label="Toggle menu">
+          <!-- hamburger -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav id="mobileNav" class="md:hidden mt-3 hidden border-t border-slate-200 pt-3 pb-4" aria-label="Mobile">
+        <a href="index.html#about"   class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Purpose</a>
+        <a href="index.html#work"    class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Our Work</a>
+        <a href="index.html#contact" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="mt-[72px] sm:mt-[80px]">
+    <!-- Intro (2 centered italic lines) -->
+    <section class="py-14 sm:py-16">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-3xl sm:text-4xl font-bold">Meet Our Team</h1>
+        <p class="mt-6 italic text-lg text-slate-600">“Great ideas grow when diverse minds collaborate.”</p>
+        <p class="italic text-lg text-slate-600">“Together, we turn vision into climate action.”</p>
+      </div>
+    </section>
+
+    <!-- Team grid: first 6 members (3 per row on desktop) -->
+    <section class="pb-10 sm:pb-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <!-- 1 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-1.jpg" alt="Prof. Anathi Magadlela" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Prof. Anathi Magadlela</h3>
+              <p class="text-sm text-slate-600">Manager / Director</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> PhD, Environmental Science</p>
+              <p class="mt-2 text-sm text-slate-600">“We build resilient communities by pairing science with local wisdom.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:anathi@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-2.jpg" alt="Mrs. Stacey Salo" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Mrs. Stacey Salo</h3>
+              <p class="text-sm text-slate-600">Administrator</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> BAdmin</p>
+              <p class="mt-2 text-sm text-slate-600">“Operations done right make impact work possible.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:stacey@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-3.jpg" alt="Dr. Nqobile Motsomane" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Dr. Nqobile Motsomane</h3>
+              <p class="text-sm text-slate-600">Research Coordinator</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> PhD, Climate Systems</p>
+              <p class="mt-2 text-sm text-slate-600">“Data turns intuition into decisions we can trust.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:nqobile@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-4.jpg" alt="Dr. Naledi Zama" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1541534401786-2077eed87a72?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Dr. Naledi Zama</h3>
+              <p class="text-sm text-slate-600">Research Assistant</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> MSc, Ecology</p>
+              <p class="mt-2 text-sm text-slate-600">“Every restored hectare is a promise to the future.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:naledi@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-5.jpg" alt="Dr. Siviwe Malongweni" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Dr. Siviwe Malongweni</h3>
+              <p class="text-sm text-slate-600">Research Assistant</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> MSc, Environmental Management</p>
+              <p class="mt-2 text-sm text-slate-600">“We measure what matters and share it clearly.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:siviwe@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-6.jpg" alt="Thandi Mbeki" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Thandi Mbeki</h3>
+              <p class="text-sm text-slate-600">Data Analyst</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> BSc, Data Science</p>
+              <p class="mt-2 text-sm text-slate-600">“Turning climate data into stories people can act on.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:thandi@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final row: 2 members centered with generous spacing -->
+    <section class="pb-16 sm:pb-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 justify-items-stretch">
+          <!-- 7 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-7.jpg" alt="Kabelo Dlamini" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Kabelo Dlamini</h3>
+              <p class="text-sm text-slate-600">Field Ecologist</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> MSc, Conservation Biology</p>
+              <p class="mt-2 text-sm text-slate-600">“Healthy soils and water cycles are our first defense.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:kabelo@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8 -->
+          <article class="group rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-soft transition transform hover:-translate-y-0.5">
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
+              <img src="assets/images/profiles/profile-8.jpg" alt="Aisha Patel" class="h-full w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-slate-900">Aisha Patel</h3>
+              <p class="text-sm text-slate-600">Community Outreach Lead</p>
+              <p class="mt-2 text-sm text-slate-600"><span class="font-medium">Qualification:</span> BA, Community Development</p>
+              <p class="mt-2 text-sm text-slate-600">“When communities lead, projects last.”</p>
+              <div class="mt-3 flex flex-wrap gap-4 text-sm">
+                <a href="mailto:aisha@example.org" class="text-brandBlue hover:underline">Email</a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="text-brandBlue hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (same style as homepage) -->
+  <footer class="border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-slate-500">© <span id="year"></span> Climate Action Org. All rights reserved.</p>
+        <nav class="flex items-center gap-4 text-sm">
+          <a href="index.html#about" class="hover:text-brandGreen">About</a>
+          <a href="index.html#work" class="hover:text-brandGreen">Our Work</a>
+          <a href="index.html#team" class="hover:text-brandGreen">Team</a>
+          <a href="index.html#contact" class="hover:text-brandGreen">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: header behavior + mobile menu + year -->
+  <script>
+    const header = document.getElementById('site-header');
+    const mobileNav = document.getElementById('mobileNav');
+    const menuBtn = document.getElementById('menuBtn');
+
+    function onScroll() {
+      if (window.scrollY > 8) {
+        header.classList.add('scrolled');
+        // If you want white nav on scroll, keep lines below; otherwise remove them.
+        document.querySelectorAll('nav a').forEach(link => {
+          link.classList.remove('text-slate-800', 'hover:text-slate-900');
+          link.classList.add('text-white', 'hover:text-white');
+        });
+      } else {
+        header.classList.remove('scrolled');
+        document.querySelectorAll('nav a').forEach(link => {
+          link.classList.add('text-slate-800', 'hover:text-slate-900');
+          link.classList.remove('text-white', 'hover:text-white');
+        });
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    menuBtn?.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileNav.classList.toggle('hidden');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Image Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slideshow-container {
+            position: relative;
+            height: 70vh;
+            max-height: 600px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            font-size: 1.2rem;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            text-align: left;
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .slideshow-container {
+                height: 50vh;
+            }
+            
+            button {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Local Image Slideshow</h1>
+        
+        <div class="slideshow-container">
+            <!-- Slides will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="navigation">
+            <button id="prev-btn">Previous</button>
+            <button id="pause-btn">Pause</button>
+            <button id="next-btn">Next</button>
+        </div>
+        
+        <div class="dots">
+            <!-- Dots will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="instructions">
+            <h3>How to Use With Your Own Images</h3>
+            <ol>
+                <li>Place your images in the same folder as this HTML file</li>
+                <li>Update the image filenames in the JavaScript code</li>
+                <li>Open this HTML file in a web browser</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Replace these with your actual image filenames
+        const images = [
+            { src: 'hero-1.png', caption: 'Beautiful Landscape' },
+            { src: 'hero-2.png', caption: 'City Skyline' },
+            { src: 'hero-3.png', caption: 'Mountain View' },
+            { src: 'hero-4.png', caption: 'Ocean Sunset' }
+        ];
+        
+        // Current slide index
+        let currentSlide = 0;
+        let slideInterval;
+        let isPlaying = true;
+        
+        // Initialize the slideshow
+        function initSlideshow() {
+            const slideshowContainer = document.querySelector('.slideshow-container');
+            const dotsContainer = document.querySelector('.dots');
+            
+            // Create slides and dots
+            images.forEach((image, index) => {
+                // Create slide element
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                slide.style.backgroundImage = `url(${image.src})`;
+                
+                // Create caption
+                const caption = document.createElement('div');
+                caption.className = 'caption';
+                caption.textContent = image.caption;
+                slide.appendChild(caption);
+                
+                slideshowContainer.appendChild(slide);
+                
+                // Create dot
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Show first slide
+            document.querySelectorAll('.slide')[0].classList.add('active');
+            
+            // Setup event listeners
+            document.getElementById('prev-btn').addEventListener('click', previousSlide);
+            document.getElementById('next-btn').addEventListener('click', nextSlide);
+            document.getElementById('pause-btn').addEventListener('click', togglePlayPause);
+            
+            // Start auto-play
+            startSlideInterval();
+        }
+        
+        // Go to specific slide
+        function goToSlide(index) {
+            // Remove active class from current slide and dot
+            document.querySelectorAll('.slide')[currentSlide].classList.remove('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
+            
+            // Update current slide index
+            currentSlide = index;
+            
+            // Add active class to new slide and dot
+            document.querySelectorAll('.slide')[currentSlide].classList.add('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.add('active');
+            
+            // Restart interval if playing
+            if (isPlaying) {
+                clearInterval(slideInterval);
+                startSlideInterval();
+            }
+        }
+        
+        // Go to next slide
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % images.length;
+            goToSlide(nextIndex);
+        }
+        
+        // Go to previous slide
+        function previousSlide() {
+            let prevIndex = (currentSlide - 1 + images.length) % images.length;
+            goToSlide(prevIndex);
+        }
+        
+        // Toggle play/pause
+        function togglePlayPause() {
+            const pauseBtn = document.getElementById('pause-btn');
+            
+            if (isPlaying) {
+                clearInterval(slideInterval);
+                pauseBtn.textContent = 'Play';
+            } else {
+                startSlideInterval();
+                pauseBtn.textContent = 'Pause';
+            }
+            
+            isPlaying = !isPlaying;
+        }
+        
+        // Start the auto-play interval
+        function startSlideInterval() {
+            slideInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
+        }
+        
+        // Initialize the slideshow when page loads
+        window.addEventListener('load', initSlideshow);
+    </script>
+</body>
+</html>

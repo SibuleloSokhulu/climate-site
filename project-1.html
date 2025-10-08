@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Climate-resilient food systems — Project — CGC</title>
+<script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandGreen: '#16a34a',
+            brandBlue: '#2563eb',
+            brandRed: '#ef4444'
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(0,0,0,0.10)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <script defer src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Header styles copied from your index so header behaviour matches exactly */
+    #site-header {
+      background-color: #7b584e;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+      padding: 20px 0;
+    }
+    #site-header.scrolled {
+      background-color: #9d847d;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 12px 0;
+    }
+    #site-header a { position: relative; transition: color 0.3s ease; color: white; }
+    #site-header.scrolled a { color: white; }
+    #site-header a::after {
+      content: ''; position: absolute; width: 0%; height: 2px; left: 0; bottom: -3px;
+      background-color: currentColor; transition: width 0.3s ease;
+    }
+    #site-header a:hover::after { width: 100%; }
+
+    /* Make sure images never distort */
+    .project-img { object-fit: cover; width: 100%; height: 100%; }
+  </style>
+
+</head>
+<body class="bg-white text-slate-800">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-3 focus:left-3 focus:bg-white focus:text-slate-900 focus:px-3 focus:py-2 focus:rounded-lg focus:shadow">Skip to content</a>
+
+  <!-- Header (copied from index so it's identical) -->
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-[#bababa] py-3 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="assets/images/logo.png" alt="CGC Logo" class="h-10 w-10 sm:h-12 sm:w-12 object-contain" />
+          <span class="text-lg sm:text-xl font-semibold">Center For Global Climate Change</span>
+        </a>
+
+        <nav aria-label="Primary" class="hidden md:flex items-center gap-6 text-[15px]">
+          <a href="index.html#about" class="text-slate-800 hover:text-slate-900">About</a>
+          <a href="index.html#work" class="text-slate-800 hover:text-slate-900">Our Work</a>
+          <a href="index.html#team" class="text-slate-800 hover:text-slate-900">Team</a>
+          <a href="index.html#contact" class="text-slate-800 hover:text-slate-900">Contact</a>
+        </nav>
+
+        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 px-3 py-2" aria-expanded="false" aria-controls="mobileNav" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <nav id="mobileNav" class="md:hidden mt-3 hidden border-t border-slate-200 pt-3 pb-4" aria-label="Mobile">
+        <a href="index.html#about" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">About</a>
+        <a href="index.html#work" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Our Work</a>
+        <a href="index.html#team" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Team</a>
+        <a href="index.html#contact" class="block px-2 py-2 rounded hover:bg-slate-50 text-slate-800">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main class="mt-[100px] max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <a href="projects.html" class="text-sm text-brandBlue hover:underline">← Back to all projects</a>
+
+    <h1 class="mt-6 text-3xl font-bold">Climate-resilient food systems in arid regions</h1>
+    <p class="mt-4 text-slate-600">
+        This project investigates the role of soil and vegetation-based carbon sequestration as a dual 
+                    strategy for climate adaptation and mitigation in arid and semi-arid regions. By enhancing the 
+                    carbon storage capacity of degraded landscapes, the project aims to build more resilient food 
+                    systems capable of withstanding the impacts of climate change.
+    </p>
+
+    <div class="mt-8 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+      <img src="assets/images/projects/project-1.jpg" alt="Project image" class="w-full h-72 object-cover" loading="lazy" />
+    </div>
+
+    <section class="mt-8 space-y-4 text-slate-700">
+      <h2 class="text-xl font-semibold">Summary</h2>
+      <p>This project investigates the role of soil and vegetation-based carbon sequestration as a dual 
+            strategy for climate adaptation and mitigation in arid and semi-arid regions. By enhancing the 
+            carbon storage capacity of degraded landscapes, the project aims to build more resilient food 
+            systems capable of withstanding the impacts of climate change. The focus will be on nature-based solutions that improve soil health, increase vegetation cover, and support sustainable 
+            agricultural practices.
+            </p>
+            <p>Project Leads:</p>
+            <li>Prof. Anathi Magadlela – Sol Plaatje University</li>
+            <li>Dr. Itumeleng Moroenyane – Stellenbosch University</li>
+            <li>Dr. Kagiso Shadung – Sol Plaatje University</li>
+            <li>Dr. Caroline Machaba – Sol Plaatje University</li>
+            <li>Prof. Maria Perez-Fernandez – Pablo de Olavide University, Spain</li>
+
+      <h2 class="text-xl font-semibold">Key outcomes</h2>
+      <ul class="list-disc pl-5">
+        <li>The Outcome : </li>
+        <li>Results are to be posted here</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 py-8 text-center text-sm text-slate-500">
+    © <span id="year"></span> Center For Global Climate Change. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

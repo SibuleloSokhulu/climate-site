@@ -1,0 +1,102 @@
+[
+  {
+    "id": "project-1",
+    "title": "Climate-resilient food systems in arid regions",
+    "summary": "This project investigates the role of soil and vegetation-based carbon sequestration as a dual strategy for climate adaptation and mitigation in arid and semi-arid regions. By enhancing the carbon storage capacity of degraded landscapes, the project aims to build more resilient food systems capable of withstanding the impacts of climate change.",
+    "date": "2025-09-09",
+    "outcomes": [
+      "Prof. Anathi Magadlela – Sol Plaatje University;",
+      "Dr. Itumeleng Moroenyane – Stellenbosch University;",
+      "Dr. Kagiso Shadung – Sol Plaatje University;",
+      "Dr. Kagiso Shadung – Sol Plaatje University;",
+      "Dr. Caroline Machaba – Sol Plaatje University;",
+      "Prof. Maria Perez-Fernandez – Pablo de Olavide University, Spain."
+    ],
+    "results": "Results are to be posted here.",
+    "createdAt": "2025-09-02T00:00:00.000Z",
+    "images": [
+      "assets/images/projects/project-1757424439062-1e60297f-ac1e-4ade-b80f-dcdb1a9af21b.jpg",
+      "assets/images/projects/project-1.jpg",
+      "assets/images/projects/project-1757424438983-d5682502-02a3-413e-941f-7c0f2d38d740.jpg"
+    ],
+    "purpose": "What is the aim/purpose of the project?"
+  },
+  {
+    "id": "project-2",
+    "title": "Climate change adaptation and mitigation in urban areas",
+    "summary": "This project focuses on developing strategies for climate change adaptation and mitigation in urban areas. It aims to enhance the resilience of cities to climate impacts while reducing greenhouse gas emissions through innovative urban planning, green infrastructure, and community engagement.",
+    "date": "",
+    "outcomes": [
+      "The Outcome :",
+      "Results are to be posted here"
+    ],
+    "results": "Project Leads: Prof. Anathi Magadlela – Sol Plaatje University; Dr. Itumeleng Moroenyane – Stellenbosch University; Dr. Kagiso Shadung – Sol Plaatje University; Dr. Caroline Machaba – Sol Plaatje University; Prof. Maria Perez-Fernandez – Pablo de Olavide University, Spain.",
+    "createdAt": "2025-09-02T00:00:00.000Z",
+    "images": [
+      "assets/images/projects/project-2.jpg"
+    ]
+  },
+  {
+    "id": "project-3",
+    "title": "Renewable energy solutions for rural communities",
+    "summary": "This project explores the implementation of renewable energy solutions in rural communities to promote sustainable development and reduce reliance on fossil fuels. It aims to improve energy access, enhance livelihoods, and contribute to climate change mitigation through the adoption of solar, wind, and bioenergy technologies.",
+    "date": "",
+    "outcomes": [
+      "The Outcome :",
+      "Results are to be posted here"
+    ],
+    "results": "Project Leads: Prof. Anathi Magadlela – Sol Plaatje University; Dr. Itumeleng Moroenyane – Stellenbosch University; Dr. Kagiso Shadung – Sol Plaatje University; Dr. Caroline Machaba – Sol Plaatje University; Prof. Maria Perez-Fernandez – Pablo de Olavide University, Spain.",
+    "createdAt": "2025-09-02T00:00:00.000Z",
+    "images": [
+      "assets/images/projects/project-3.jpg"
+    ]
+  },
+  {
+    "id": "project-4",
+    "title": "Sustainable water management in agriculture",
+    "summary": "This project aims to develop sustainable water management practices in agriculture to enhance water use efficiency and reduce the environmental impact of farming activities. It focuses on innovative irrigation techniques, soil moisture conservation, and integrated water resource management to support climate-resilient agricultural systems.",
+    "date": "",
+    "outcomes": [
+      "The Outcome :",
+      "Results are to be posted here"
+    ],
+    "results": "Project Leads: Prof. Anathi Magadlela – Sol Plaatje University; Dr. Itumeleng Moroenyane – Stellenbosch University; Dr. Kagiso Shadung – Sol Plaatje University; Dr. Caroline Machaba – Sol Plaatje University; Prof. Maria Perez-Fernandez – Pablo de Olavide University, Spain.",
+    "createdAt": "2025-09-02T00:00:00.000Z",
+    "images": [
+      "assets/images/projects/project-4.jpg"
+    ]
+  },
+  {
+    "id": "project-5",
+    "title": "Biodiversity conservation in the face of climate change",
+    "summary": "This project focuses on biodiversity conservation strategies to protect ecosystems and species threatened by climate change. It aims to enhance habitat connectivity, promote ecosystem restoration, and implement adaptive management practices to safeguard biodiversity and ecosystem services.",
+    "date": "",
+    "outcomes": [
+      "The Outcome :",
+      "Results are to be posted here"
+    ],
+    "results": "Project Leads: Prof. Anathi Magadlela – Sol Plaatje University; Dr. Itumeleng Moroenyane – Stellenbosch University; Dr. Kagiso Shadung – Sol Plaatje University; Dr. Caroline Machaba – Sol Plaatje University; Prof. Maria Perez-Fernandez – Pablo de Olavide University, Spain.",
+    "createdAt": "2025-09-02T00:00:00.000Z",
+    "images": [
+      "assets/images/projects/project-5.jpg"
+    ]
+  },
+  {
+    "id": "17896320-1da1-44b8-a985-ed6acb774a9d",
+    "title": "Forrest Trump",
+    "images": [
+      "assets/images/projects/project-1759758546206-11dee303-1b5d-4374-bd2d-485432b95570.jpg",
+      "assets/images/projects/project-1759758546498-fc9f419b-e111-42d7-b440-27aa206bff9b.jpg"
+    ],
+    "summary": "Climate change refers to long-term shifts in temperatures and weather patterns, primarily caused by human activities such as burning fossil fuels, which increase greenhouse gas concentrations in the atmosphere. These changes lead to global warming, extreme weather events, rising sea levels, and disruptions to ecosystems and human societies.",
+    "date": "2020-07-15",
+    "outcomes": [
+      "Sibulelo Sokhulu",
+      "Nqobile Mostomane",
+      "Naledi Zama"
+    ],
+    "results": "It also aims to support advocacy efforts or inform policy decisions related to environmental sustainability.",
+    "purpose": "To raise awareness about the causes and impacts of climate change, to serve as an educational tool for students, policymakers, or the general public. It also aims to support advocacy efforts or inform policy decisions related to environmental sustainability.",
+    "createdAt": "2025-10-06T13:49:06.796Z"
+  }
+]

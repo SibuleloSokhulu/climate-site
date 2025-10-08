@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Climate Site</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-2xl font-bold">Admin Panel</h1>
+    <p class="text-sm text-slate-600">Hidden login, add and edit projects. This page is not linked publicly.</p>
+
+    <!-- LOGIN -->
+    <section id="loginSection" class="mt-6 rounded-xl bg-white p-4 shadow">
+      <h2 class="font-semibold">Login</h2>
+      <div class="mt-3 grid gap-3">
+        <input id="email" type="email" placeholder="Admin email" class="border rounded px-3 py-2" />
+        <input id="password" type="password" placeholder="Password" class="border rounded px-3 py-2" />
+        <button id="loginBtn" class="bg-blue-600 text-white rounded px-4 py-2 w-max">Log in</button>
+        <p id="loginMsg" class="text-sm text-red-600"></p>
+      </div>
+    </section>
+
+    <section id="authed" class="hidden mt-6 space-y-8">
+      <div class="flex items-center gap-3">
+        <button id="logoutBtn" class="border rounded px-3 py-1">Logout</button>
+        <span id="status" class="text-sm text-green-700">Logged in</span>
+      </div>
+
+      <!-- ADD PROJECT -->
+      <section class="rounded-xl bg-white p-4 shadow">
+        <h2 class="font-semibold">Add Project</h2>
+        <form id="addForm" class="mt-3 grid gap-3" enctype="multipart/form-data">
+          <input name="title" type="text" placeholder="Title" class="border rounded px-3 py-2" required />
+          <!-- allow multiple -->
+          <input name="images" type="file" accept="image/*" class="border rounded px-3 py-2" multiple />
+          <textarea name="summary" placeholder="Summary" rows="4" class="border rounded px-3 py-2" required></textarea>
+          <input name="date" type="date" class="border rounded px-3 py-2" required />
+          <!-- renamed label: Project Leaders -->
+          <textarea name="outcomes" placeholder="Project Leaders (one per line)" rows="4" class="border rounded px-3 py-2"></textarea>
+          <!-- new purpose field -->
+          <textarea name="purpose" placeholder="The purpose of the project" rows="3" class="border rounded px-3 py-2"></textarea>
+          <textarea name="results" placeholder="Results" rows="4" class="border rounded px-3 py-2" required></textarea>
+          <button class="bg-green-600 text-white rounded px-4 py-2 w-max">Add Project</button>
+          <p id="addMsg" class="text-sm"></p>
+        </form>
+      </section>
+
+      <!-- EXISTING PROJECTS -->
+      <section class="rounded-xl bg-white p-4 shadow">
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold">Existing Projects</h2>
+          <button id="refreshBtn" class="border rounded px-3 py-1 text-sm">Refresh</button>
+        </div>
+        <div id="list" class="mt-4 grid gap-4"></div>
+      </section>
+    </section>
+  </div>
+
+  <template id="cardTpl">
+    <div class="border rounded-xl p-3 flex gap-4">
+      <img class="w-24 h-24 object-cover rounded" />
+      <div class="flex-1">
+        <div class="font-semibold"></div>
+        <div class="text-sm text-slate-500"></div>
+        <div class="text-xs mt-1"></div>
+        <div class="mt-2 flex gap-2">
+          <button class="editBtn border rounded px-2 py-1 text-sm">Edit</button>
+          <a class="viewBtn border rounded px-2 py-1 text-sm" target="_blank">View page</a>
+          <button class="deleteBtn border rounded px-2 py-1 text-sm text-red-600">Delete</button>
+        </div>
+        <form class="editForm hidden mt-3 grid gap-2" enctype="multipart/form-data">
+          <div class="existingImages flex gap-2"></div>
+
+          <input name="title" type="text" class="border rounded px-2 py-1" />
+          <!-- multiple -->
+          <input name="images" type="file" accept="image/*" class="border rounded px-2 py-1" multiple />
+          <textarea name="summary" rows="3" class="border rounded px-2 py-1"></textarea>
+          <input name="date" type="date" class="border rounded px-2 py-1" />
+          <!-- Project Leaders -->
+          <textarea name="outcomes" rows="3" class="border rounded px-2 py-1" placeholder="Project Leaders (one per line)"></textarea>
+          <!-- new purpose field -->
+          <textarea name="purpose" rows="2" class="border rounded px-2 py-1" placeholder="The purpose of the project"></textarea>
+          <textarea name="results" rows="3" class="border rounded px-2 py-1"></textarea>
+          <button class="saveBtn bg-blue-600 text-white rounded px-3 py-1 w-max text-sm">Save changes</button>
+          <div class="msg text-sm"></div>
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // Simple state
+    let authed = false;
+
+    const loginSection = document.getElementById("loginSection");
+    const authedSection = document.getElementById("authed");
+    const loginBtn = document.getElementById("loginBtn");
+    const loginMsg = document.getElementById("loginMsg");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const addForm = document.getElementById("addForm");
+    const addMsg = document.getElementById("addMsg");
+    const listEl = document.getElementById("list");
+    const refreshBtn = document.getElementById("refreshBtn");
+
+    function showAuthedUI(show) {
+      authed = show;
+      loginSection.classList.toggle("hidden", show);
+      authedSection.classList.toggle("hidden", !show);
+    }
+
+    async function login() {
+      loginMsg.textContent = "";
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      try {
+        const res = await fetch("/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ email, password }),
+        });
+        if (!res.ok) throw new Error("Login failed");
+        const data = await res.json();
+        if (data.ok) {
+          showAuthedUI(true);
+          await loadProjects();
+        } else {
+          loginMsg.textContent = data.message || "Login failed";
+        }
+      } catch (e) {
+        loginMsg.textContent = "Login error";
+      }
+    }
+
+    async function logout() {
+      await fetch("/auth/logout", { method: "POST", credentials: "include" });
+      showAuthedUI(false);
+    }
+
+    async function loadProjects() {
+      listEl.innerHTML = "Loading...";
+      const res = await fetch("/api/projects", { credentials: "include" });
+      if (!res.ok) {
+        listEl.textContent = "Failed to load";
+        return;
+      }
+      const list = await res.json();
+      listEl.innerHTML = "";
+      const tpl = document.getElementById("cardTpl");
+      list.forEach((p) => {
+        const node = tpl.content.cloneNode(true);
+        const img = node.querySelector("img");
+        const title = node.querySelector(".font-semibold");
+        const date = node.querySelector(".text-sm.text-slate-500");
+        const extras = node.querySelector(".text-xs.mt-1");
+        const editBtn = node.querySelector(".editBtn");
+        const viewBtn = node.querySelector(".viewBtn");
+        const form = node.querySelector(".editForm");
+        const saveBtn = node.querySelector(".saveBtn");
+        const msg = node.querySelector(".msg");
+        const deleteBtn = node.querySelector(".deleteBtn");
+
+        // show primary thumbnail (first image) or placeholder
+        const firstImage = Array.isArray(p.images) && p.images.length ? (p.images[0].startsWith('/') ? p.images[0] : '/' + p.images[0]) : '/assets/images/placeholder.png';
+        img.src = firstImage;
+        img.alt = p.title || 'project';
+
+        title.textContent = p.title || "";
+        date.textContent = p.date || "";
+        extras.textContent = p.summary?.slice(0, 120) || "";
+
+        viewBtn.href = "/project/" + p.id;
+
+        // existing images container (in template)
+        const existingDiv = node.querySelector('.existingImages');
+        existingDiv.innerHTML = '';
+        (p.images || []).forEach((im, idx) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'flex flex-col items-center';
+
+          const thumb = document.createElement('img');
+          thumb.src = im.startsWith('/') ? im : '/' + im;
+          thumb.className = 'w-20 h-20 object-cover rounded';
+
+          const btnRow = document.createElement('div');
+          btnRow.className = 'flex gap-1 mt-1';
+
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'border rounded px-2 py-1 text-xs text-red-600';
+          del.textContent = 'Delete';
+          del.addEventListener('click', async () => {
+            if (!confirm('Delete this image?')) return;
+            const fd = new FormData();
+            fd.append('removeImages', JSON.stringify([im]));
+            try {
+              const res = await fetch('/api/projects/' + p.id, { method: 'PUT', credentials: 'include', body: fd });
+              if (!res.ok) throw new Error('Failed');
+              await loadProjects();
+            } catch (e) {
+              alert('Delete image failed');
+            }
+          });
+
+          const primary = document.createElement('button');
+          primary.type = 'button';
+          primary.className = 'border rounded px-2 py-1 text-xs';
+          primary.textContent = 'Set primary';
+          primary.addEventListener('click', async () => {
+            const fd = new FormData();
+            // tell server to make this index primary
+            fd.append('makePrimary', String(idx));
+            try {
+              const res = await fetch('/api/projects/' + p.id, { method: 'PUT', credentials: 'include', body: fd });
+              if (!res.ok) throw new Error('Failed');
+              await loadProjects();
+            } catch (e) {
+              alert('Set primary failed');
+            }
+          });
+
+          btnRow.appendChild(primary);
+          btnRow.appendChild(del);
+          wrapper.appendChild(thumb);
+          wrapper.appendChild(btnRow);
+          existingDiv.appendChild(wrapper);
+        });
+
+        // fill edit form values when toggled
+        editBtn.addEventListener("click", () => {
+          form.classList.toggle("hidden");
+          form.title.value = p.title || "";
+          form.summary.value = p.summary || "";
+          form.date.value = p.date || "";
+          form.outcomes.value = (p.outcomes || []).join("\n");
+          form.results.value = p.results || "";
+          form.purpose.value = p.purpose || "";
+        });
+
+        // save edit form (append new images, or change text fields)
+        form.addEventListener("submit", async (ev) => {
+          ev.preventDefault();
+          msg.textContent = "";
+          const fd = new FormData(form);
+          try {
+            const res = await fetch("/api/projects/" + p.id, {
+              method: "PUT",
+              credentials: "include",
+              body: fd,
+            });
+            if (!res.ok) {
+              const t = await res.text();
+              throw new Error(t || "Failed");
+            }
+            msg.textContent = "Saved ✓";
+            await loadProjects();
+          } catch (e) {
+            msg.textContent = "Save error";
+          }
+        });
+
+        // delete whole project
+        deleteBtn.addEventListener("click", async () => {
+          if (!confirm("Are you sure you want to delete this project?")) return;
+          try {
+            const res = await fetch("/api/projects/" + p.id, {
+              method: "DELETE",
+              credentials: "include",
+            });
+            if (!res.ok) throw new Error("Failed");
+            await loadProjects();
+          } catch (e) {
+            alert("Delete error");
+          }
+        });
+
+        listEl.appendChild(node);
+      });
+    }
+
+    loginBtn.addEventListener("click", login);
+    logoutBtn.addEventListener("click", logout);
+    refreshBtn.addEventListener("click", loadProjects);
+
+    addForm.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      addMsg.textContent = "";
+      const fd = new FormData(addForm);
+      try {
+        const res = await fetch("/api/projects", {
+          method: "POST",
+          credentials: "include",
+          body: fd,
+        });
+        if (!res.ok) {
+          const t = await res.text();
+          throw new Error(t);
+        }
+        const data = await res.json();
+        addMsg.textContent = "Added ✓";
+        addForm.reset();
+        await loadProjects();
+      } catch (e) {
+        addMsg.textContent = "Add error";
+      }
+    });
+  </script>
+</body>
+</html>
